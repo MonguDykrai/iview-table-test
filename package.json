@@ -8,6 +8,8 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
+    "fundebug-javascript": "^1.7.3",
+    "fundebug-vue": "^0.0.1",
     "iview": "^3.4.0-rc.4",
     "vue": "^2.6.10"
   },

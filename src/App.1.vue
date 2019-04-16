@@ -1,23 +1,16 @@
 <template>
   <div id="app">
-    <Button @click="showTable('table1')">show Table1</Button>
-    <Button @click="showTable('table2')">show Table2</Button>
-    <Button @click="showTable('table3')">show table3</Button>
-    <table>
-      <thead>
-        <th v-for="(field, id) in column" :key="id">{{ field.title }}</th>
-      </thead>
-      <tbody>
-        <tr v-for="(dataItem, index) in data" :key="index">
-          <td v-for="(key, index) in dataItem" :key="index">{{ key }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <Button @click="handleTable1">show Table1</Button>
+    <br>
+    <Button @click="handleTable2">show Table2</Button>
+    <br>
+    <Button @click="handleTable3">show Table3</Button>
+    <br>
+    <Button @click="clearTable">Clear Table</Button>
+    <Table :columns="columns" :data="data"></Table>
   </div>
 </template>
-
 <script>
-
 const columns1 = [
   {
     title: "id",
@@ -14782,38 +14775,51 @@ const data3 = [
 ];
 
 export default {
+  name: "App",
+
   methods: {
-    showTable: function(tableName) {
-      console.time("t1");
-
-      switch(tableName) {
-        case "table1":
-        this.column = columns1;
-        this.data = data1;
-        break;
-        case "table2":
-        this.column = columns2;
-        this.data = data2;
-        break;
-        case "table3":
-        this.column = columns3;
-        this.data = data3;
-        break;
-      }
-
+    clearTable: function() {
+      console.time("t4");
+      this.columns = [];
+      this.data = [];
       this.$nextTick(() => {
-      console.timeEnd("t1");
-    });
+        console.timeEnd("t4");
+      });
+    },
+
+    handleTable1: function() {
+      console.time("t1");
+      this.columns = columns1;
+      this.data = data1;
+      this.$nextTick(() => {
+        console.timeEnd("t1");
+      });
+    },
+
+    handleTable2: function() {
+      console.time("t2");
+      this.columns = columns2;
+      this.data = data2;
+      this.$nextTick(() => {
+        console.timeEnd("t2");
+      });
+    },
+
+    handleTable3: function() {
+      console.time("t3");
+      this.columns = columns3;
+      this.data = data3;
+      this.$nextTick(() => {
+        console.timeEnd("t3");
+      });
     }
   },
-  data: function() {
+
+  data() {
     return {
-      column: [],
+      columns: [],
       data: []
     };
   }
 };
 </script>
-
-<style>
-</style>

@@ -3,21 +3,26 @@
     <Button @click="showTable('table1')">show Table1</Button>
     <Button @click="showTable('table2')">show Table2</Button>
     <Button @click="showTable('table3')">show table3</Button>
-    <table>
+    <div class="table-wrapper">
+      <table class="reset_table" style="table-layout: fixed;">
+      <!-- <colgroup>
+        <col v-for="(field, id) in column" width="200" :key="id">
+      </colgroup> -->
       <thead>
-        <th v-for="(field, id) in column" :key="id">{{ field.title }}</th>
+        <th :title="field.title" v-for="(field, id) in column" :key="id" style="padding: 0 8px; width: 200px;">{{ field.title }}</th>
       </thead>
       <tbody>
         <tr v-for="(dataItem, index) in data" :key="index">
-          <td v-for="(key, index) in dataItem" :key="index">{{ key }}</td>
+          <td :title="key" v-for="(key, index) in dataItem" :key="index" style="padding: 0 8px; width: 200px;">{{ key }}</td>
         </tr>
       </tbody>
     </table>
+    </div>
+    
   </div>
 </template>
 
 <script>
-
 const columns1 = [
   {
     title: "id",
@@ -14786,24 +14791,24 @@ export default {
     showTable: function(tableName) {
       console.time("t1");
 
-      switch(tableName) {
+      switch (tableName) {
         case "table1":
-        this.column = columns1;
-        this.data = data1;
-        break;
+          this.column = columns1;
+          this.data = data1;
+          break;
         case "table2":
-        this.column = columns2;
-        this.data = data2;
-        break;
+          this.column = columns2;
+          this.data = data2;
+          break;
         case "table3":
-        this.column = columns3;
-        this.data = data3;
-        break;
+          this.column = columns3;
+          this.data = data3;
+          break;
       }
 
       this.$nextTick(() => {
-      console.timeEnd("t1");
-    });
+        console.timeEnd("t1");
+      });
     }
   },
   data: function() {
@@ -14816,4 +14821,55 @@ export default {
 </script>
 
 <style>
+.reset_table,
+.reset_table table tr,
+.reset_table tr td,
+.reset_table table tbody,
+.reset_table table thead,
+.reset_table table tfoot,
+.reset_table table tr th,
+.reset_table table tfoot tr tf {
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  background-image: none;
+}
+
+.table-wrapper {
+  height: 476px;
+  overflow: auto;
+}
+
+thead th {
+  color: #515a6e;
+  border-bottom: 1px solid #e8eaec;
+}
+
+th,
+tr {
+  height: 40px;
+}
+
+th,
+td {
+  /* padding: 10px; */
+
+  /* width: 200px; */
+  text-align: center;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+tr td {
+  border-bottom: 1px solid #e8eaec !important;
+}
+
+thead {
+  background: #f8f8f9;
+}
 </style>

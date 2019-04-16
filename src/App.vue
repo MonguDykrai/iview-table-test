@@ -4,13 +4,15 @@
     <Button @click="showTable('table2')">show Table2</Button>
     <Button @click="showTable('table3')">show table3</Button>
     <div class="table-wrapper">
-      <table class="users reset_table">
+      <table class="users reset_table table1">
         <colgroup>
           <col v-for="(field, id) in column" width="200" :key="id">
         </colgroup>
         <thead>
-          <th :title="field.title" v-for="(field, id) in column" :key="id">
-            {{ field.title }}</th>
+          <tr>
+            <th :title="field.title" v-for="(field, id) in column" :key="id">
+              {{ field.title }}</th>
+          </tr>
         </thead>
         <tbody>
           <tr v-for="(dataItem, index) in data" :key="index" :ref="`row${index}`"
@@ -18,7 +20,7 @@
 
             <td :title="key" v-for="(key, index) in dataItem" :key="index">
               <!-- <Tooltip :content="key" placement="right-end"> -->
-                {{ key }}
+              {{ key }}
               <!-- </Tooltip> -->
             </td>
 
@@ -32,6 +34,9 @@
 </template>
 
 <script>
+  import $ from "jquery";
+  import floatThead from "floatthead";
+
   const columns1 = [
     {
       title: "id",
@@ -14811,6 +14816,14 @@
       },
 
       showTable: function (tableName) {
+        const $table = $("table.table1");
+        
+        $table.floatThead({
+          scrollContainer: function ($table) {
+            return $table.closest('.table-wrapper');
+          }
+        });
+
         console.time("t1");
 
         switch (tableName) {
@@ -14894,7 +14907,7 @@
     color: #515a6e;
   }
 
-  tr:hover {
+  tbody tr:hover {
     background: #EBF7FF;
   }
 
